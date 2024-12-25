@@ -11,7 +11,7 @@ def list_directory_contents(directory):
 def add_to_stew(string, filename):
     """simple text emulisfer writer (backronyms suck)"""
     if type(string) is str:
-        with open(filename, 'w', encoding='UTF-8') as file:
+        with open(filename, 'a', encoding='UTF-8') as file:
             file.write(string)
             file.write("\n")
             #print("Wrote to file.")

@@ -54,8 +54,8 @@ def main(place_id, data_folder):
 
     filename = f"uncopylocked_{place_id}.txt"
     file_path = os.path.join(data_folder, "uncopylocked_places", filename)
-    if os.path.exists(filename):
-        os.remove(filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
     print("Adding URLs to text file...")
