@@ -1,6 +1,7 @@
 /done
 /*.txt
 !requirements.txt
+/grab-site-data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -173,3 +174,30 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# https://gist.github.com/octocat/9257657
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# ignore .conda
+.conda/
