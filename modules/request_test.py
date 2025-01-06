@@ -52,9 +52,9 @@ def request_url(url, retryAmount=8, cookie=None, headers=None, allow_redirects=F
     return False
 
 
-def exponential_binary_search(url, placeId):
+def exponential_binary_search(url, id):
     k = 0  # 2**0 = 1
-    while request_url(url.format(placeId, 2**k)):
+    while request_url(url.format(id, 2**k)):
         k += 1
 
     # perform binary search in the range [2^(k-1) + 1, 2^k]
@@ -63,7 +63,7 @@ def exponential_binary_search(url, placeId):
 
     while low <= high:
         mid = (low + high) // 2
-        if not request_url(url.format(placeId, mid)):
+        if not request_url(url.format(id, mid)):
             high = mid - 1
         else:
             low = mid + 1

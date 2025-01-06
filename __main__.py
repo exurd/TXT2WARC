@@ -2,8 +2,8 @@ import time
 import sys
 import os
 import modules.compress as compress
+import modules.roblox.uncopylocked_places as uncopylocked_places
 
-import modules.uncopylocked_places as uncopylocked_places
 types = {
     "uncopylocked_places": uncopylocked_places
 }

@@ -17,7 +17,7 @@ def add_to_stew(string, filename):
             #print("Wrote to file.")
 
 
-def send_to_grab_site(filename, file_path, data_folder, type, polling_interval=5, timeout=120):
+def send_to_grab_site(filename, file_path, data_folder, type, polling_interval=5, timeout=120, no_scrape=True):
     """
     Sends the specified file to a docker container of grab_site.
 
@@ -26,10 +26,14 @@ def send_to_grab_site(filename, file_path, data_folder, type, polling_interval=5
     print("Telling grab-site to use the text file...")
 
     monitor_folder = data_folder  # "../"  # D:\grab-site-data
+
+    # create folder for finished warcs
+    os.makedirs(os.path.join(data_folder, "__finishedWarcs"), exist_ok=True)
+    
     before_snapshot = list_directory_contents(monitor_folder)
 
     container_name = "grab-site-container"
-    command = ["docker", "exec", "-d", container_name, "grab-site", "-i", f"/data/{type}/{filename}", "--finished-warc-dir", "/data/__finishedWarcs", "--wpull-args=--no-warc-compression"]
+    command = ["docker", "exec", "-d", container_name, "grab-site", "-i", f"/data/{type}/{filename}", "--finished-warc-dir", "/data/__finishedWarcs", "--wpull-args=--no-warc-compression", "--igsets=global,youtube"]
 
     # execute command for grab-site docker container
     try:
@@ -58,6 +62,8 @@ def send_to_grab_site(filename, file_path, data_folder, type, polling_interval=5
         return False
 
     print(THEfolder)
+    if no_scrape:
+        os.remove(os.path.join(data_folder, THEfolder, "scrape"))  # https://github.com/ArchiveTeam/grab-site?tab=readme-ov-file#preventing-a-crawl-from-queuing-any-more-urls
 
     # destination = f"./done/{filename}"
     # if os.path.exists(destination):
