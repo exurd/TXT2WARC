@@ -17,7 +17,7 @@ def add_to_stew(string, filename):
             #print("Wrote to file.")
 
 
-def send_to_grab_site(filename, file_path, data_folder, type_folder, polling_interval=5, timeout=120, no_scrape=True):
+def send_to_grab_site(filename, file_path, data_folder, type_folder, polling_interval=5, timeout=120, no_scrape=True, wpull_args='--no-warc-compression', igsets="global,youtube"):
     """
     Sends the specified file to a docker container of grab_site.
 
@@ -33,7 +33,13 @@ def send_to_grab_site(filename, file_path, data_folder, type_folder, polling_int
     before_snapshot = list_directory_contents(monitor_folder)
 
     container_name = "grab-site-container"
-    command = ["docker", "exec", "-d", container_name, "grab-site", "-i", f"/data/{type_folder}/{filename}", "--finished-warc-dir", "/data/__finishedWarcs", "--wpull-args=--no-warc-compression", "--igsets=global,youtube"]
+    command = ["docker", "exec", "-d", container_name,
+               "grab-site", "-i", f"/data/{type_folder}/{filename}",
+               "--finished-warc-dir", "/data/__finishedWarcs",
+               f"--wpull-args={wpull_args}",
+               f"--igsets={igsets}"]
+
+    print("Running command:", " ".join(command))
 
     # execute command for grab-site docker container
     try:
