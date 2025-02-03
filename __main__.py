@@ -2,11 +2,7 @@ import time
 import sys
 import os
 import modules.compress as compress
-import modules.roblox.uncopylocked_places as uncopylocked_places
-
-types = {
-    "uncopylocked_places": uncopylocked_places
-}
+from modules.types import types
 
 try:
     data_folder = sys.argv[1]
