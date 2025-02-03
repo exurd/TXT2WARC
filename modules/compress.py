@@ -1,4 +1,5 @@
 import os
+import sys
 import re
 import subprocess
 
@@ -43,3 +44,14 @@ def compress(data_folder):
     directory = f'{data_folder}/__finishedWarcs/'
     output_dir = f'{data_folder}/__compressedWarcs/'
     compress_similar_files(directory, output_dir)
+
+if __name__ == '__main__':
+    try:
+        data_folder = sys.argv[1]
+        if not os.path.isdir(data_folder):
+            raise ValueError("data_folder is not a path")
+    except:
+        print("Folder was not specified. Exiting.")
+        sys.exit(1)
+    
+    compress(data_folder)
