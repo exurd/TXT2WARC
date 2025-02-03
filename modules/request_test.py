@@ -4,18 +4,16 @@ import random, math, time
 requestSession = requests.Session()
 
 
-def request_url(url, retryAmount=8, cookie=None, headers=None, allow_redirects=False):
+def request_url(url, retryAmount=8, headers=None, allow_redirects=False):
     tries = 0
     print(f"Requesting {url}...")
     for _ in range(retryAmount):
         tries += 1
         try:
-            if cookie == None:
-                response: requests.Response = requests.get(url, allow_redirects=allow_redirects)
-            elif headers != None:
+            if headers != None:
                 response: requests.Response = requestSession.get(url, headers=headers, allow_redirects=allow_redirects)
             else:
-                response: requests.Response = requestSession.get(url)
+                response: requests.Response = requestSession.get(url, allow_redirects=allow_redirects)
             if response.status_code == 200:
                 return response
             if response.status_code == 302: # Found
