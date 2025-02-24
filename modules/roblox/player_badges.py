@@ -12,7 +12,7 @@ def main(badge_id, data_folder):
     # if amount is False:
     #     return False  # sys.exit(1)
 
-    filename = f"badge_{badge_id}.txt"
+    filename = f"{badge_id}.txt"
     file_path = os.path.join(data_folder, TYPE_FOLDER, filename)
     if os.path.exists(file_path):
         os.remove(file_path)
