@@ -33,10 +33,18 @@ def find_last_version(assetId):
     """
     if type(int(assetId)) is int:
         if is_uncopylocked(assetId):
-            url = "https://assetdelivery.roblox.com/v1/asset/?id={}&version={}"
-            last_num = exponential_binary_search(url, assetId)
-            print(f"Last number found: {last_num}")
-            return last_num
+            # url = "https://assetdelivery.roblox.com/v1/asset/?id={}&version={}"
+            # last_num = exponential_binary_search(url, assetId)
+            # print(f"Last number found: {last_num}")
+            # return last_num
+
+            # header `roblox-assetversionnumber` on this api can show last version
+            req = request_url(f"https://assetdelivery.roblox.com/v1/asset/?id={str(assetId)}&version=0")
+            if req:
+                if req.headers:
+                    return int(req.headers["roblox-assetversionnumber"])
+            print("Could not get info from assetdelivery...")
+            return False
         else:
             print("Not uncopylocked, exiting!")
             return False
