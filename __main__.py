@@ -13,9 +13,10 @@ try:
     if not os.path.isfile(file_path):
         raise ValueError("file_path is not a path")
 
-    item_type = sys.argv[3]
-    if not item_type in types:
-        raise ValueError("item_type not in type list")
+    if len(sys.argv) >= 4:
+        item_type = sys.argv[3]
+        if not item_type in types:
+            raise ValueError("item_type not in type list")
 except:
     print("Please specify the text file and what type the items are [python . DATA_FOLDER TEXT_FILE ITEM_TYPE]\n")
     print(f"Available types: {[type for type in types]}")
@@ -32,9 +33,15 @@ with open(file_path, 'r') as file:
         if line_number % 5 == 0:
             compress.compress(data_folder)
 
-        id = line.strip()
-        print(f"Line {str(line_number)}: {id}")
+        try:
+            item_type, id = line.strip().split(":")
+        except ValueError:
+            id = line.strip()
 
-        types[item_type].main(id, data_folder)
+        try:
+            print(f"Line {str(line_number)}: {id} ({item_type})")
+            types[item_type].main(id, data_folder)
+        except NameError as e:
+            print(f"Error! {e}")
         print("Text Loop: Waiting 3 secs...")
         time.sleep(3)
