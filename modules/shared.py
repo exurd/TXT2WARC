@@ -32,12 +32,14 @@ def send_to_grab_site(filename, file_path, data_folder, type_folder, polling_int
     
     before_snapshot = list_directory_contents(monitor_folder)
 
+    delay_milliseconds = "3000-4500"
     container_name = "grab-site-container"
     command = ["docker", "exec", "-d", container_name,
                "grab-site", "-i", f"/data/{type_folder}/{filename}",
                "--finished-warc-dir", "/data/__finishedWarcs",
                f"--wpull-args={wpull_args}",
-               f"--igsets={igsets}"]
+               f"--igsets={igsets}",
+               f"--delay={str(delay_milliseconds)}"]
 
     print("Running command:", " ".join(command))
 
